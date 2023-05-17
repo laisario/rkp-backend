@@ -87,6 +87,7 @@ class Calibracao(models.Model):
         Laboratorio, on_delete=models.SET_NULL, null=True, verbose_name="Laboratório")
     ordem_de_servico = models.ForeignKey(
         OrdemDeServico, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Ordem de serviço")
+    data = models.CharField(max_length=10, null=True, blank=True)
     data_proxima_calibracao = models.CharField(max_length=10, null=True, blank=True)
     data_proxima_checagem = models.CharField(max_length=10, null=True, blank=True)
 
