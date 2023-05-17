@@ -35,6 +35,7 @@ class TipoDeInstrumento(models.Model):
 
 class Status(models.Model):
     nome = models.CharField(max_length=512)
+    cor = models.CharField(max_length=20, default="success")
 
     def __str__(self):
         return self.nome
