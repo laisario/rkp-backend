@@ -14,7 +14,8 @@ class LoginSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super(LoginSerializer, cls).get_token(user)
-        token['nome'] = user.cliente.__str__()
+        if hasattr(user, 'cliente'):
+            token['nome'] = user.cliente.__str__()
         return token
 
 
