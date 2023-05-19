@@ -14,9 +14,7 @@ class LoginSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super(LoginSerializer, cls).get_token(user)
-
-        # Add custom claims
-        token['username'] = user.username
+        token['nome'] = user.cliente.__str__()
         return token
 
 
@@ -31,15 +29,16 @@ class RegisterSerializer(serializers.Serializer):
     password2 = serializers.CharField(write_only=True, required=True)
 
     # cliente
-    nome = serializers.CharField(required=True, write_only=True)
-    telefone = serializers.CharField(write_only=True)
-    cpf = serializers.CharField(write_only=True)
+    nome = serializers.CharField(required=False, write_only=True)
+    telefone = serializers.CharField(required=False, write_only=True)
+    cpf = serializers.CharField(required=False, write_only=True)
 
     # empresa
     empresa = serializers.BooleanField(default=False, write_only=True)
     razao_social = serializers.CharField(required=False, write_only=True)
     cnpj = serializers.CharField(required=False, write_only=True)
-    unidades = serializers.ListField(required=False, write_only=True)
+    inscricao_estadual = serializers.CharField(required=False, write_only=True)
+    isento = serializers.BooleanField(default=False, write_only=True)
 
     # endereço
     uf = serializers.CharField(write_only=True)
@@ -65,38 +64,38 @@ class RegisterSerializer(serializers.Serializer):
 
         user.set_password(validated_data['password'])
         user.save()
-
-        if validated_data['empresa']:
+        if validated_data.get('empresa'):
             empresa, created = Empresa.objects.get_or_create(
-                razao_social=validated_data['razao_social'],
-                cnpj=validated_data['cnpj']
+                razao_social=validated_data.get('razao_social'),
+                cnpj=validated_data.get('cnpj')
             )
             for unidade in validated_data.get('unidades', []):
                 Unidade.objects.create(nome=unidade, empresa=empresa)
 
-        uf, created = UF.objects.get_or_create(sigla=validated_data['uf'])
+        uf, created = UF.objects.get_or_create(sigla=validated_data.get('uf'))
         cidade, created = Cidade.objects.get_or_create(
             uf=uf,
-            nome=validated_data['cidade']
+            nome=validated_data.get('cidade')
         )
         bairro, created = Bairro.objects.get_or_create(
             cidade=cidade,
-            nome=validated_data['bairro']
+            nome=validated_data.get('bairro')
         )
         endereco, created = Endereco.objects.get_or_create(
-            cep=validated_data['cep'],
-            numero=validated_data['numero'],
+            cep=validated_data.get('cep'),
+            numero=validated_data.get('numero'),
             bairro=bairro,
-            logradouro=validated_data['logradouro'],
+            logradouro=validated_data.get('logradouro'),
             complemento=validated_data.get("complemento", '')
         )
 
         Cliente.objects.create(
             usuario=user,
-            nome=validated_data['nome'],
-            telefone=validated_data['telefone'],
-            cpf=validated_data['cpf'],
-            endereco=endereco
+            nome=validated_data.get('nome'),
+            telefone=validated_data.get('telefone'),
+            cpf=validated_data.get('cpf'),
+            endereco=endereco,
+            empresa=empresa,
         )
 
         return user

@@ -6,6 +6,8 @@ class Empresa(models.Model):
     razao_social = models.CharField(
         max_length=512, verbose_name="Razão Social")
     cnpj = models.CharField(max_length=25, verbose_name="C.N.P.J.")
+    inscricao_estadual = models.CharField(max_length=50, verbose_name="Inscrição Estadual", null=True, blank=True)
+    isento = models.BooleanField(default=False)
 
     def __str__(self):
         return self.razao_social
@@ -21,7 +23,7 @@ class Unidade(models.Model):
 
 
 class Cliente(models.Model):
-    nome = models.CharField(max_length=112)
+    nome = models.CharField(blank=True, null=True, max_length=112)
     empresa = models.OneToOneField(
         Empresa, on_delete=models.SET_NULL, null=True, blank=True)
     telefone = models.CharField(max_length=25, null=True, blank=True)
@@ -33,4 +35,8 @@ class Cliente(models.Model):
         User, on_delete=models.CASCADE, verbose_name="Usuário")
 
     def __str__(self):
-        return self.nome
+        if hasattr(self.empresa, 'razao_social'):
+            return self.empresa.razao_social
+        if self.nome:
+            return self.nome
+        return super().__str__()
