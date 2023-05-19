@@ -29,19 +29,16 @@ class RegisterSerializer(serializers.Serializer):
         write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
 
-    # cliente
     nome = serializers.CharField(required=False, write_only=True)
     telefone = serializers.CharField(required=False, write_only=True)
     cpf = serializers.CharField(required=False, write_only=True)
 
-    # empresa
     empresa = serializers.BooleanField(default=False, write_only=True)
     razao_social = serializers.CharField(required=False, write_only=True)
     cnpj = serializers.CharField(required=False, write_only=True)
     inscricao_estadual = serializers.CharField(required=False, write_only=True)
     isento = serializers.BooleanField(default=False, write_only=True)
 
-    # endereço
     uf = serializers.CharField(write_only=True)
     cidade = serializers.CharField(write_only=True)
     bairro = serializers.CharField(write_only=True)
