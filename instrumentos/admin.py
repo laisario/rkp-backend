@@ -4,6 +4,7 @@ from import_export.admin import ImportMixin
 from import_export.widgets import IntegerWidget, CharWidget
 from import_export.resources import ModelResource
 from import_export.forms import ImportForm, ConfirmImportForm
+from import_export.tmp_storages import MediaStorage
 from .models import Fabricante, Instrumento, Localizacao, Modelo, OrdemDeCompra, Status, TipoDeInstrumento
 from calibracoes.models import Laboratorio, Certificado, OrdemDeServico, Criterio, Referencia, Status as StatusResultado, Resultado, Calibracao
 from clientes.models import Cliente
@@ -50,6 +51,11 @@ class InstrumentosConfirmImportForm(ConfirmImportForm):
 
 
 class InstrumentoResource(ModelResource):
+    item = Field(
+        column_name = "Item",
+        attribute = "item",
+        widget = CharWidget()
+    )
     tag = Field(
         column_name = "Identificação (Tag)",
         attribute = "tag",
@@ -135,7 +141,7 @@ class InstrumentoResource(ModelResource):
 
     class Meta:
         model = Instrumento
-        import_id_fields = ('tag',)
+        import_id_fields = ('item', 'tag')
         fields = ('tag', 'descricao', 'observacoes')
         export_order = ('tag', 'descricao', 'observacoes')
 
@@ -145,6 +151,7 @@ class InstrumentoAdmin(ImportMixin, admin.ModelAdmin):
     resource_classes = [InstrumentoResource]
     import_form_class = InstrumentosImportForm
     confirm_form_class = InstrumentosConfirmImportForm
+    tmp_storage_class = MediaStorage
 
     def get_confirm_form_initial(self, request, import_form):
         initial = super().get_confirm_form_initial(request, import_form)

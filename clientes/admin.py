@@ -21,7 +21,6 @@ class UnidadeAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(Group)
-admin.site.unregister(User)
 admin.site.index_title = _('Painel Administrativo')
 admin.site.site_header = _('RKP Metrologia')
 admin.site.site_title = _('RKP Metrologia')

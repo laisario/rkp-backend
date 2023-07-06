@@ -28,6 +28,7 @@ class Status(models.Model):
 class Resultado(models.Model):
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True)
     erro = models.TextField(blank=True, null=True)
+    incerteza = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return "{}: {}".format(self.status.nome, self.erro)

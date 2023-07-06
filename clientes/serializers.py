@@ -36,7 +36,7 @@ class RegisterSerializer(serializers.Serializer):
     empresa = serializers.BooleanField(default=False, write_only=True)
     razao_social = serializers.CharField(required=False, write_only=True)
     cnpj = serializers.CharField(required=False, write_only=True)
-    inscricao_estadual = serializers.CharField(required=False, write_only=True)
+    ie = serializers.CharField(required=False, write_only=True)
     isento = serializers.BooleanField(default=False, write_only=True)
 
     uf = serializers.CharField(write_only=True)
@@ -59,13 +59,15 @@ class RegisterSerializer(serializers.Serializer):
             username=validated_data['email'],
             email=validated_data['email'],
         )
-
+        empresa = None
         user.set_password(validated_data['password'])
         user.save()
         if validated_data.get('empresa'):
             empresa, created = Empresa.objects.get_or_create(
                 razao_social=validated_data.get('razao_social'),
-                cnpj=validated_data.get('cnpj')
+                cnpj=validated_data.get('cnpj'),
+                ie=validated_data.get('ie'),
+                isento=validated_data.get('isento')
             )
             for unidade in validated_data.get('unidades', []):
                 Unidade.objects.create(nome=unidade, empresa=empresa)

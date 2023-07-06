@@ -25,14 +25,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "9efg8asd8qasdgadq012r138"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.rkp.com.br',
+    'rkp.com.br',
+    'rkp2023.pythonanywhere.com',
+]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
-    'http://127.0.0.1:5173'
+    'http://127.0.0.1:5173',
+    'https://app.rkp.com.br',
+    'https://www.app.rkp.com.br'
 ]
 
 # Application definition
@@ -91,8 +97,11 @@ WSGI_APPLICATION = "rkp_platform.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "HOST": "rkp2023.mysql.pythonanywhere-services.com",
+        "PASSWORD": "Lab@2021com",
+        "USER": "rkp2023",
+        "NAME": "rkp2023$default",
     }
 }
 
@@ -122,7 +131,6 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'pt-br'
 USE_L10N = True
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
-# settings.py
  
 from django.utils.translation import gettext_lazy as _
  
@@ -140,6 +148,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = "./static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

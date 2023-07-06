@@ -6,7 +6,7 @@ class Empresa(models.Model):
     razao_social = models.CharField(
         max_length=512, verbose_name="Razão Social")
     cnpj = models.CharField(max_length=25, verbose_name="C.N.P.J.")
-    inscricao_estadual = models.CharField(max_length=50, verbose_name="Inscrição Estadual", null=True, blank=True)
+    ie = models.CharField(max_length=50, verbose_name="Inscrição Estadual", null=True, blank=True)
     isento = models.BooleanField(default=False)
 
     def __str__(self):
