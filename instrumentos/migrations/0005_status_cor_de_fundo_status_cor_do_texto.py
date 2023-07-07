@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('instrumentos', '0004_alter_instrumento_ordem_de_compra'),
+        ("instrumentos", "0004_alter_instrumento_ordem_de_compra"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='status',
-            name='cor_de_fundo',
-            field=models.CharField(default='#66bb6a', max_length=7),
+            model_name="status",
+            name="cor_de_fundo",
+            field=models.CharField(default="#66bb6a", max_length=7),
         ),
         migrations.AddField(
-            model_name='status',
-            name='cor_do_texto',
-            field=models.CharField(default='#ffffff', max_length=7),
+            model_name="status",
+            name="cor_do_texto",
+            field=models.CharField(default="#ffffff", max_length=7),
         ),
     ]

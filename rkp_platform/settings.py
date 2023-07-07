@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
-from datetime import timedelta
 import os
+from datetime import timedelta
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,17 +28,17 @@ SECRET_KEY = "9efg8asd8qasdgadq012r138"
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'www.rkp.com.br',
-    'rkp.com.br',
-    'rkp2023.pythonanywhere.com',
+    "www.rkp.com.br",
+    "rkp.com.br",
+    "rkp2023.pythonanywhere.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'https://app.rkp.com.br',
-    'https://www.app.rkp.com.br'
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://app.rkp.com.br",
+    "https://www.app.rkp.com.br",
 ]
 
 # Application definition
@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "import_export",
     "clientes",
-    "calibracoes",
     "instrumentos",
     "enderecos",
 ]
@@ -62,7 +61,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    'django.middleware.locale.LocaleMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -128,14 +127,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = "pt-br"
 USE_L10N = True
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
- 
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
+
 from django.utils.translation import gettext_lazy as _
- 
+
 LANGUAGES = [
-    ('pt-br', _('Português')),
+    ("pt-br", _("Português")),
 ]
 TIME_ZONE = "UTC"
 
@@ -156,13 +155,13 @@ STATIC_ROOT = "./static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
 
 SIMPLE_JWT = {
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=15),
-    'ROTATE_REFRESH_TOKENS': True,
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=15),
+    "ROTATE_REFRESH_TOKENS": True,
 }

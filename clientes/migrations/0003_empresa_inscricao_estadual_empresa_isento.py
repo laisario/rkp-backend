@@ -4,20 +4,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clientes', '0002_alter_cliente_nome'),
+        ("clientes", "0002_alter_cliente_nome"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='empresa',
-            name='inscricao_estadual',
-            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='Inscrição Estadual'),
+            model_name="empresa",
+            name="inscricao_estadual",
+            field=models.CharField(
+                blank=True, max_length=50, null=True, verbose_name="Inscrição Estadual"
+            ),
         ),
         migrations.AddField(
-            model_name='empresa',
-            name='isento',
+            model_name="empresa",
+            name="isento",
             field=models.BooleanField(default=False),
         ),
     ]

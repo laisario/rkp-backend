@@ -14,8 +14,9 @@ class UF(models.Model):
 
 class Cidade(models.Model):
     nome = models.CharField(max_length=212)
-    uf = models.ForeignKey(UF, on_delete=models.CASCADE,
-                           related_name="cidades", verbose_name="UF")
+    uf = models.ForeignKey(
+        UF, on_delete=models.CASCADE, related_name="cidades", verbose_name="UF"
+    )
 
     def __str__(self):
         return self.nome
@@ -23,8 +24,7 @@ class Cidade(models.Model):
 
 class Bairro(models.Model):
     nome = models.CharField(max_length=212)
-    cidade = models.ForeignKey(
-        Cidade, on_delete=models.CASCADE, related_name="bairros")
+    cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE, related_name="bairros")
 
     def __str__(self):
         return self.nome
@@ -38,7 +38,9 @@ class Endereco(models.Model):
     complemento = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return "{} - {}: {}".format(self.bairro.cidade.nome, self.bairro.cidade.uf.sigla, self.cep)
+        return "{} - {}: {}".format(
+            self.bairro.cidade.nome, self.bairro.cidade.uf.sigla, self.cep
+        )
 
     class Meta:
         verbose_name = "Endereço"

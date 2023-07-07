@@ -1,32 +1,6 @@
 from rest_framework import serializers
-from .models import Instrumento, Fabricante, Localizacao, Modelo, OrdemDeCompra, Status, TipoDeInstrumento
-from calibracoes.serializers import CalibracaoSerializer
 
-
-class FabricanteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Fabricante
-        fields = "__all__"
-
-
-class LocalizacaoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Localizacao
-        fields = "__all__"
-
-
-class ModeloSerializer(serializers.ModelSerializer):
-    fabricante = FabricanteSerializer()
-
-    class Meta:
-        model = Modelo
-        fields = "__all__"
-
-
-class OrdemDeCompraSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = OrdemDeCompra
-        fields = "__all__"
+from .models import Calibracao, Instrumento, Status
 
 
 class StatusSerializer(serializers.ModelSerializer):
@@ -35,20 +9,15 @@ class StatusSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class TipoDeInstrumentoSerializer(serializers.ModelSerializer):
-    modelo = ModeloSerializer()
-
+class CalibracaoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TipoDeInstrumento
+        model = Calibracao
         fields = "__all__"
 
 
 class InstrumentoSerializer(serializers.ModelSerializer):
-    tipo = TipoDeInstrumentoSerializer()
     status = StatusSerializer()
-    localizacao = LocalizacaoSerializer()
     calibracoes = CalibracaoSerializer(many=True)
-    ordem_de_compra = OrdemDeCompraSerializer()
 
     class Meta:
         model = Instrumento

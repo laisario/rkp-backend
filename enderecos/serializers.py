@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-
-from .models import Bairro, Cidade, Endereco, UF
+from .models import UF, Bairro, Cidade, Endereco
 
 
 class BairroSerializer(serializers.ModelSerializer):
